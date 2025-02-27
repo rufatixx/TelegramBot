@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/admin/Projects/TelegramBot/TelegramBot/TelegramBot.csproj": {}
+    "/Users/admin/Projects/TelegramBot/TelegramBot.csproj": {}
   },
   "projects": {
-    "/Users/admin/Projects/TelegramBot/TelegramBot/TelegramBot.csproj": {
+    "/Users/admin/Projects/TelegramBot/TelegramBot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/admin/Projects/TelegramBot/TelegramBot/TelegramBot.csproj",
+        "projectUniqueName": "/Users/admin/Projects/TelegramBot/TelegramBot.csproj",
         "projectName": "TelegramBot",
-        "projectPath": "/Users/admin/Projects/TelegramBot/TelegramBot/TelegramBot.csproj",
+        "projectPath": "/Users/admin/Projects/TelegramBot/TelegramBot.csproj",
         "packagesPath": "/Users/admin/.nuget/packages/",
-        "outputPath": "/Users/admin/Projects/TelegramBot/TelegramBot/obj/",
+        "outputPath": "/Users/admin/Projects/TelegramBot/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/admin/.nuget/NuGet/NuGet.Config"

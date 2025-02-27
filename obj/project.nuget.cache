@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ljlu9FRkUGVJ5Q9yutyzDZYzLEUPpF3kktRehE9IQIVxsxMT5fHWKgL0oszYw2w34YnYAKD8eFKspjkJoDd7og==",
+  "dgSpecHash": "wnWNHU/v+P+QOCKBIKdCFBWzidZDwfgL2OjtELQnxhwHqyJr7taGiIpvjDmdfSuM0UmF20OviUHikY2WXkMIlQ==",
   "success": true,
-  "projectFilePath": "/Users/admin/Projects/TelegramBot/TelegramBot/TelegramBot.csproj",
+  "projectFilePath": "/Users/admin/Projects/TelegramBot/TelegramBot.csproj",
   "expectedPackageFiles": [
     "/Users/admin/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/Users/admin/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
