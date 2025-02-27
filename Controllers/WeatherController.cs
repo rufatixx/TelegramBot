@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Telegram.Bot;
 using TelegramBot.Services;
 
 namespace TelegramBot.Controllers;
@@ -8,50 +9,35 @@ namespace TelegramBot.Controllers;
 public class WeatherController : ControllerBase
 {
 
-
     private readonly IUserRepository _userRepository;
-    private readonly TelegramBotService _telegramBotService;
+    private readonly WeatherService _weatherService;
+    private readonly TelegramBotClient _botClient;
 
-    public WeatherController(IUserRepository userRepository,TelegramBotService telegramBotService)
+    public WeatherController(IUserRepository userRepository, WeatherService weatherService, TelegramBotClient botClient)
     {
         _userRepository = userRepository;
-        _telegramBotService = telegramBotService;
+        _weatherService = weatherService;
+        _botClient = botClient;
     }
 
    
     [HttpPost("sendWeatherToAll")]
-    public async Task<IActionResult> SendWeatherToAll([FromBody] WeatherRequest request)
+    public async Task<IActionResult> SendWeatherToAll()
     {
-        
-        IEnumerable<User> users;
-        if (!string.IsNullOrEmpty(request.UserId))
-        {
-            var user = await _userRepository.GetUserAsync(request.UserId);
-            if (user == null)
-            {
-                return NotFound($"User with id {request.UserId} not found.");
-            }
-            users = new List<User> { user };
-        }
-        else
-        {
-            users = await _userRepository.GetAllUsersAsync();
-        }
+        // Get all users from the database
+        IEnumerable<User> users = await _userRepository.GetAllUsersAsync();
 
-        
-        string weatherUpdate = "Today's weather is sunny with a slight chance of rain in the afternoon.";
-
-    
         foreach (var user in users)
         {
-            await _telegramBotService.SendMessageAsync(user.ChatId, weatherUpdate);
+            // Get real weather info based on the user's default city
+            var weatherInfo = await _weatherService.GetWeatherInfoAsync(user.DefaultCity);
+
+            // Send the weather notification to the user's Telegram chat
+            await _botClient.SendTextMessageAsync(chatId: user.ChatId, text: weatherInfo);
         }
 
-        return Ok("Weather information sent to users.");
+        return Ok("Weather notifications sent to all users.");
     }
-    public class WeatherRequest
-    {
-        public string? UserId { get; set; }  
-    }
+    
 }
 

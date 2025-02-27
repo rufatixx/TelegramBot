@@ -2,16 +2,19 @@
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
-using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient; 
 using Microsoft.Extensions.Configuration;
+
 
 public interface IUserRepository
 {
-    Task<IEnumerable<User>> GetAllUsersAsync();
     Task<User> GetUserAsync(string userId);
+    Task<IEnumerable<User>> GetAllUsersAsync();
     Task InsertUserAsync(User user);
+    Task UpdateUserAsync(User user);
     Task SaveWeatherRequestAsync(string userId, string city, string weatherInfo);
 }
+
 
 public class UserRepository : IUserRepository
 {
@@ -19,36 +22,41 @@ public class UserRepository : IUserRepository
 
     public UserRepository(IConfiguration configuration)
     {
-        
         _connectionString = configuration.GetConnectionString("DefaultConnection");
-    }
-
-    public async Task<IEnumerable<User>> GetAllUsersAsync()
-    {
-        using (var connection = new SqlConnection(_connectionString))
-        {
-            var sql = "SELECT * FROM Users";
-            return await connection.QueryAsync<User>(sql);
-        }
     }
 
     public async Task<User> GetUserAsync(string userId)
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            
-            var sql = "SELECT * FROM Users WHERE UserId = @UserId";
-            return await db.QueryFirstOrDefaultAsync<User>(sql, new { UserId = userId });
+            return await db.QueryFirstOrDefaultAsync<User>(
+                "SELECT * FROM Users WHERE UserId = @UserId", new { UserId = userId });
+        }
+    }
+
+    public async Task<IEnumerable<User>> GetAllUsersAsync()
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            return await db.QueryAsync<User>("SELECT * FROM Users");
         }
     }
 
     public async Task InsertUserAsync(User user)
     {
-        using (var connection = new SqlConnection(_connectionString))
+        using (IDbConnection db = new SqlConnection(_connectionString))
         {
-           
-            var sql = "INSERT INTO Users (UserId, Username, ChatId) VALUES (@UserId, @Name, @ChatId)";
-            await connection.ExecuteAsync(sql, user);
+            var sql = "INSERT INTO Users (UserId, ChatId, Name, DefaultCity) VALUES (@UserId, @ChatId, @Name, @DefaultCity)";
+            await db.ExecuteAsync(sql, user);
+        }
+    }
+
+    public async Task UpdateUserAsync(User user)
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            var sql = "UPDATE Users SET ChatId = @ChatId, Name = @Name, DefaultCity = @DefaultCity WHERE UserId = @UserId";
+            await db.ExecuteAsync(sql, user);
         }
     }
 
@@ -56,7 +64,6 @@ public class UserRepository : IUserRepository
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            
             var sql = @"INSERT INTO WeatherHistory (UserId, City, WeatherInfo, RequestDate) 
                         VALUES (@UserId, @City, @WeatherInfo, GETDATE())";
             await db.ExecuteAsync(sql, new { UserId = userId, City = city, WeatherInfo = weatherInfo });
@@ -64,9 +71,11 @@ public class UserRepository : IUserRepository
     }
 }
 
+
 public class User
 {
     public string UserId { get; set; }
-    public string Name { get; set; }
     public long ChatId { get; set; }
+    public string Name { get; set; }
+    public string DefaultCity { get; set; }
 }

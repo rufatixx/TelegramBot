@@ -243,3 +243,4 @@ C:/Users/User/source/repos/TelegramBot/obj/Debug/net8.0/ref/TelegramBot.dll
 /Users/admin/Projects/TelegramBot/obj/Debug/net8.0/TelegramBot.pdb
 /Users/admin/Projects/TelegramBot/obj/Debug/net8.0/TelegramBot.genruntimeconfig.cache
 /Users/admin/Projects/TelegramBot/obj/Debug/net8.0/ref/TelegramBot.dll
+/Users/admin/Projects/TelegramBot/bin/Debug/net8.0/Newtonsoft.Json.dll
