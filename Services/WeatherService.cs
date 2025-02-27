@@ -20,7 +20,7 @@ namespace TelegramBot.Services
 
         public async Task<string> GetWeatherInfoAsync(string city)
         {
-           
+
             var url1 = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={_apiKey}&units=metric";
             var response1 = await _httpClient.GetAsync(url1);
             if (!response1.IsSuccessStatusCode)
@@ -34,8 +34,8 @@ namespace TelegramBot.Services
             double lat = data1.coord.lat;
             double lon = data1.coord.lon;
 
-           
-            var url2 = $"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,alerts&appid={_apiKey}&units=metric";
+
+            var url2 = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&exclude=minutely,alerts&appid={_apiKey}&units=metric";
             var response2 = await _httpClient.GetAsync(url2);
             if (!response2.IsSuccessStatusCode)
             {
@@ -46,9 +46,8 @@ namespace TelegramBot.Services
             var json2 = await response2.Content.ReadAsStringAsync();
             dynamic data2 = JsonConvert.DeserializeObject(json2);
 
-           
-            string description = data2.current.weather[0].description;
-            double temp = data2.current.temp;
+            string description = data2.weather[0].description;
+            double temp = data2.main.temp;
             return $"Current weather in {city}: {description}, {temp}°C.";
         }
     }
