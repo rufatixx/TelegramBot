@@ -43,9 +43,9 @@
               "target": "Package",
               "version": "[2.1.66, )"
             },
-            "MySqlConnector": {
+            "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[2.4.0, )"
+              "version": "[6.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

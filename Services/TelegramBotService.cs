@@ -41,17 +41,17 @@ namespace TelegramBot.Services
                     var city = parts.Length > 1 ? parts[1] : "defaultCity";
                     var weatherInfo = $"Dummy weather info for {city}";
 
-                    // Create a scope to get a scoped IUserRepository instance
+                    
                     using (var scope = _scopeFactory.CreateScope())
                     {
                         var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
                         var user = await userRepository.GetUserAsync(update.Message.From.Id.ToString());
                         if (user == null)
                         {
-                            // Create the user record if not found (example code)
-                            await userRepository.InsertUserAsync(new User { UserId = update.Message.From.Id.ToString(), Name = $"{update.Message.From.Username}" });
+                          
+                            await userRepository.InsertUserAsync(new User { UserId = update.Message.From.Id.ToString(), Name = $"{update.Message.From.Username}",ChatId =  update.Message.Chat.Id });
                         }
-                        // Then, insert the weather request record
+                       
                         await userRepository.SaveWeatherRequestAsync(update.Message.From.Id.ToString(), city, weatherInfo);
                       
                        
@@ -70,6 +70,11 @@ namespace TelegramBot.Services
         {
             Console.WriteLine($"Error: {exception.Message}");
             return Task.CompletedTask;
+        }
+        // Helper method to send a message to a specific chat
+        public async Task SendMessageAsync(long chatId, string message)
+        {
+            await _botClient.SendTextMessageAsync(chatId, message);
         }
     }
 }

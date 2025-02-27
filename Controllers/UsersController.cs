@@ -14,15 +14,10 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{userId}")]
-    public IActionResult GetUser(string userId)
+    public async Task<IActionResult> GetUser(string userId)
     {
-        
-        var user = new
-        {
-            UserId = userId,
-            Name = "John Doe",
-            WeatherHistory = new[] { "London: Sunny", "New York: Cloudy" }
-        };
+        var user = await _userRepository.GetUserAsync(userId); 
+
         return Ok(user);
     }
 }
