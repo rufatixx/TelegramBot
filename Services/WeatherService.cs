@@ -20,20 +20,36 @@ namespace TelegramBot.Services
 
         public async Task<string> GetWeatherInfoAsync(string city)
         {
-            var url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={_apiKey}&units=metric";
-            var response = await _httpClient.GetAsync(url);
-            if (response.IsSuccessStatusCode)
+           
+            var url1 = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={_apiKey}&units=metric";
+            var response1 = await _httpClient.GetAsync(url1);
+            if (!response1.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                dynamic weatherData = JsonConvert.DeserializeObject(json);
-                string description = weatherData.weather[0].description;
-                double temp = weatherData.main.temp;
-                return $"Weather in {city}: {description}, {temp}°C";
-            }
-            else
-            {
+                var errorContent = await response1.Content.ReadAsStringAsync();
+                System.Console.WriteLine($"Error fetching city coordinates: {errorContent}");
                 return $"Could not retrieve weather information for {city}.";
             }
+            var json1 = await response1.Content.ReadAsStringAsync();
+            dynamic data1 = JsonConvert.DeserializeObject(json1);
+            double lat = data1.coord.lat;
+            double lon = data1.coord.lon;
+
+           
+            var url2 = $"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,alerts&appid={_apiKey}&units=metric";
+            var response2 = await _httpClient.GetAsync(url2);
+            if (!response2.IsSuccessStatusCode)
+            {
+                var errorContent = await response2.Content.ReadAsStringAsync();
+                System.Console.WriteLine($"Error fetching detailed weather: {errorContent}");
+                return $"Could not retrieve extended weather information for {city}.";
+            }
+            var json2 = await response2.Content.ReadAsStringAsync();
+            dynamic data2 = JsonConvert.DeserializeObject(json2);
+
+           
+            string description = data2.current.weather[0].description;
+            double temp = data2.current.temp;
+            return $"Current weather in {city}: {description}, {temp}°C.";
         }
     }
 
