@@ -1,41 +1,37 @@
-﻿<Properties StartupConfiguration="{539AC739-CD22-494E-90B3-105DE8BEF8A9}|https">
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/admin/Projects/TelegramBot/TelegramBot/Repo/UserRepository.cs" relfile="TelegramBot/Repo/UserRepository.cs" line="48" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+﻿<Properties StartupConfiguration="{FF9AC3D7-33B0-430C-9905-94526B0E01FE}|https">
   <MonoDevelop.Ide.ItemProperties.TelegramBot PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TelegramBot/Repo/UserRepository.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Services/TelegramBotService.cs">
     <Files>
-      <File FileName="TelegramBot/appsettings.json" Line="3" Column="74" />
-      <File FileName="TelegramBot/Controllers/WeatherForecastController.cs" Line="21" Column="4" />
-      <File FileName="TelegramBot/Controllers/UsersController.cs" Line="21" Column="25" />
-      <File FileName="TelegramBot/Repo/UserRepository.cs" Line="32" Column="10" />
-      <File FileName="TelegramBot/Services/TelegramBotService.cs" Line="44" Column="21" />
-      <File FileName="TelegramBot/Properties/launchSettings.json" Line="1" Column="1" />
-      <File FileName="TelegramBot/Program.cs" Line="1" Column="1" />
+      <File FileName="appsettings.json" />
+      <File FileName="Services/WeatherService.cs" />
+      <File FileName="Repo/UserRepository.cs" Line="65" Column="54" />
+      <File FileName="Controllers/WeatherController.cs" />
+      <File FileName="Program.cs" />
+      <File FileName="Controllers/UsersController.cs" />
+      <File FileName="Services/TelegramBotService.cs" Line="63" Column="56" />
+      <File FileName="WeatherForecast.cs" Line="1" Column="1" />
+      <File FileName="Properties/launchSettings.json" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="TelegramBot" expanded="True">
             <Node name="TelegramBot">
-              <Node name="Dependencies" expanded="True">
-                <Node name="PackageDependencies" expanded="True" />
-              </Node>
               <Node name="Controllers" expanded="True" />
-              <Node name="Properties" expanded="True" />
-              <Node name="Repo" expanded="True">
-                <Node name="UserRepository.cs" selected="True" />
+              <Node name="Repo" expanded="True" />
+              <Node name="Services" expanded="True">
+                <Node name="TelegramBotService.cs" selected="True" />
               </Node>
-              <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

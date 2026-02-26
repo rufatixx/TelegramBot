@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "TelegramBot.Controllers.UsersController",
+    "Method": "GetUser",
+    "RelativePath": "Users/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TelegramBot.Controllers.WeatherController",
+    "Method": "SendWeatherToAll",
+    "RelativePath": "Weather/sendWeatherToAll",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

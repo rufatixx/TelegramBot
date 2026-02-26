@@ -2,7 +2,7 @@
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
-using Microsoft.Data.SqlClient; 
+using MySqlConnector;
 using Microsoft.Extensions.Configuration;
 
 
@@ -27,7 +27,7 @@ public class UserRepository : IUserRepository
 
     public async Task<User> GetUserAsync(string userId)
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        using (IDbConnection db = new MySqlConnection(_connectionString))
         {
             return await db.QueryFirstOrDefaultAsync<User>(
                 "SELECT * FROM Users WHERE UserId = @UserId", new { UserId = userId });
@@ -36,7 +36,7 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetAllUsersAsync()
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        using (IDbConnection db = new MySqlConnection(_connectionString))
         {
             return await db.QueryAsync<User>("SELECT * FROM Users");
         }
@@ -44,7 +44,7 @@ public class UserRepository : IUserRepository
 
     public async Task InsertUserAsync(User user)
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        using (IDbConnection db = new MySqlConnection(_connectionString))
         {
             var sql = "INSERT INTO Users (UserId, ChatId, Name, DefaultCity) VALUES (@UserId, @ChatId, @Name, @DefaultCity)";
             await db.ExecuteAsync(sql, user);
@@ -53,7 +53,7 @@ public class UserRepository : IUserRepository
 
     public async Task UpdateUserAsync(User user)
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        using (IDbConnection db = new MySqlConnection(_connectionString))
         {
             var sql = "UPDATE Users SET ChatId = @ChatId, Name = @Name, DefaultCity = @DefaultCity WHERE UserId = @UserId";
             await db.ExecuteAsync(sql, user);
@@ -62,7 +62,7 @@ public class UserRepository : IUserRepository
 
     public async Task SaveWeatherRequestAsync(string userId, string city, string weatherInfo)
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        using (IDbConnection db = new MySqlConnection(_connectionString))
         {
             var sql = @"INSERT INTO WeatherHistory (UserId, City, WeatherInfo, RequestDate) 
                         VALUES (@UserId, @City, @WeatherInfo, GETDATE())";
