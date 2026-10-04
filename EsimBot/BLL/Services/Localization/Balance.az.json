@@ -1,0 +1,5 @@
+{
+  "balance.order": "⚠️ eSIM Access balansında kifayət qədər vəsait yoxdur\n\nHazırkı balans: {0}\nBir seçilmiş tarif üçün tələb olunur: {1}\nÇatışmayan məbləğ: {2}\n\neSIM Access balansını ən azı göstərilən məbləğ qədər artır. Bu, bir tarif üçün çatışmayan məbləğdir, bütün gözləyən sifarişlərin cəmi deyil. Balans mesaj göndərilməzdən əvvəl yoxlanılıb.",
+  "balance.minimum": "⚠️ eSIM Access balansı mövcud ən ucuz tarif üçün belə kifayət etmir\n\nHazırkı balans: {0}\nƏn ucuz tarifin qiyməti: {1}\nƏn azı çatışmayan məbləğ: {2}\n\neSIM Access balansını artır. Daha bahalı tariflər və bir neçə sifariş üçün daha çox vəsait lazımdır. Balans mesaj göndərilməzdən əvvəl yoxlanılıb.",
+  "balance.empty": "⚠️ eSIM Access balansı: $0.00\n\neSIM təqdim etmək üçün təchizatçının balansını artır. Ən ucuz tarifin qiyməti hazırda məlum deyil; kataloq yeniləndikdən sonra dəqiq minimum məbləğ göstəriləcək."
+}

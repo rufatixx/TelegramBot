@@ -1,0 +1,140 @@
+@model EsimBot.BLL.DTO.LandingPageDto
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="@Model.Language">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f5ef" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>@Model.Title</title>
+    <meta name="description" content="@Model.Description" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="@Model.CanonicalUrl" />
+    <link rel="alternate" hreflang="ru" href="https://esimbot.digify.az/" />
+    <link rel="alternate" hreflang="az" href="https://esimbot.digify.az/az" />
+    <link rel="alternate" hreflang="en" href="https://esimbot.digify.az/en" />
+    <link rel="alternate" hreflang="x-default" href="https://esimbot.digify.az/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="RoamiSIM" />
+    <meta property="og:title" content="@Model.Title" />
+    <meta property="og:description" content="@Model.Description" />
+    <meta property="og:url" content="@Model.CanonicalUrl" />
+    <meta property="og:locale" content="@Model.Locale" />
+    @foreach (var locale in new[] { "ru_RU", "az_AZ", "en_US" }.Where(value => value != Model.Locale))
+    {
+        <meta property="og:locale:alternate" content="@locale" />
+    }
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="@Model.Title" />
+    <meta name="twitter:description" content="@Model.Description" />
+    <link rel="stylesheet" href="/css/landing.css?v=2" />
+    <link rel="stylesheet" href="/css/official-flags.css?v=1" />
+    <script src="/js/telegram-handoff.js?v=1" defer></script>
+    <script type="application/ld+json">@Html.Raw(Model.SchemaJson)</script>
+</head>
+<body>
+    <a class="skip-link" href="#main">@Model.T("a11y.skip")</a>
+    <header class="site-header wrap">
+        <a class="brand" href="@Model.CanonicalUrl" aria-label="RoamiSIM">
+            <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect x="1" y="1" width="38" height="38" rx="13" fill="currentColor" /><path d="m26 12-4 14-4-5-6-3 14-6Z" fill="#c1e8d3" /><circle cx="27" cy="28" r="2" fill="#c1e8d3" /></svg>
+            <span>Roami<span class="brand-light">SIM</span><span class="brand-dot">.</span></span>
+        </a>
+        <nav class="main-nav" aria-label="RoamiSIM">
+            <a href="#destinations">@Model.T("nav.destinations")</a>
+            <a href="#how-it-works">@Model.T("nav.how")</a>
+            <a href="#faq">@Model.T("nav.faq")</a>
+        </nav>
+        <a class="button button-small button-outline header-cta" href="@Model.BotUrl">@Model.T("nav.open") <span aria-hidden="true">↗</span></a>
+    </header>
+    <nav class="top-languages wrap" aria-label="AZ / RU / EN">
+        <a href="/az" lang="az" title="Azərbaycanca" aria-current="@(Model.Language == "az" ? "page" : null)">AZ</a>
+        <a href="/" lang="ru" title="Русский" aria-current="@(Model.Language == "ru" ? "page" : null)">RU</a>
+        <a href="/en" lang="en" title="English" aria-current="@(Model.Language == "en" ? "page" : null)">EN</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+        <section class="hero wrap" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>@Model.T("hero.eyebrow")</p>
+                <h1 id="hero-title">@Model.T("hero.title")</h1>
+                <p class="hero-description">@Model.T("hero.description")</p>
+                <div class="hero-actions">
+                    <a class="button button-primary" href="@Model.BotUrl">@Model.T("hero.cta") <span aria-hidden="true">↗</span></a>
+                    <a class="text-link" href="#how-it-works">@Model.T("hero.secondary") <span aria-hidden="true">↓</span></a>
+                </div>
+                <p class="hero-note"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="m4 10 4 4 8-8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg>@Model.T("hero.note")</p>
+            </div>
+            <div class="hero-visual" role="img" aria-label="@Model.T("visual.caption")">
+                <div class="visual-grid" aria-hidden="true"></div>
+                <svg class="globe-art" viewBox="0 0 390 390" aria-hidden="true" focusable="false">
+                    <circle cx="195" cy="195" r="164" fill="#dceee1" stroke="#80bba2" stroke-width="1" />
+                    <g fill="none" stroke="#91c1ab" stroke-width="1"><ellipse cx="195" cy="195" rx="106" ry="164" /><ellipse cx="195" cy="195" rx="43" ry="164" /><ellipse cx="195" cy="195" rx="164" ry="103" /><ellipse cx="195" cy="195" rx="164" ry="42" /><path d="M31 195h328M195 31v328" /></g>
+                    <path d="M71 247c45-164 170-193 241-85" fill="none" stroke="#1a4c43" stroke-width="2" stroke-dasharray="5 7" />
+                    <circle cx="71" cy="247" r="8" fill="#173e36" stroke="#dceee1" stroke-width="4" /><circle cx="312" cy="162" r="8" fill="#173e36" stroke="#dceee1" stroke-width="4" />
+                    <path d="m270 80 21 15-10 3-4 12-7-30Z" fill="#173e36" />
+                </svg>
+                <div class="journey-label" aria-hidden="true"><span class="journey-spark">✳</span><span>@Model.T("visual.status")</span></div>
+                <div class="phone" aria-hidden="true">
+                    <div class="phone-island"></div>
+                    <div class="phone-topline"><span>RoamiSIM<span class="brand-dot">.</span></span><svg viewBox="0 0 24 18" focusable="false"><path d="M3 16V12M9 16V8M15 16V4M21 16V1" stroke="currentColor" stroke-width="3" stroke-linecap="round" /></svg></div>
+                    <div class="phone-heading">@Model.T("how.choose.title")</div>
+                    <div class="phone-country"><img class="flag flag-official" src="/img/flags/tr.svg" alt="" /><span>@Model.T("destinations.turkey")</span><span class="country-arrow">↗</span></div>
+                    <div class="phone-country"><img class="flag flag-official" src="/img/flags/az.svg" alt="" /><span>@Model.T("destinations.azerbaijan")</span><span class="country-arrow">↗</span></div>
+                    <div class="phone-country"><img class="flag flag-official" src="/img/flags/ge.svg" alt="" /><span>@Model.T("destinations.georgia")</span><span class="country-arrow">↗</span></div>
+                    <div class="phone-bottom"><span class="esim-chip"><svg viewBox="0 0 36 40" focusable="false"><path d="M8 2h15l10 10v21a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" fill="none" stroke="currentColor" stroke-width="2" /><rect x="10" y="15" width="16" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2" /><path d="M10 22h16M18 15v16" stroke="currentColor" stroke-width="1.5" /></svg></span><span>eSIM</span><span class="phone-bottom-spark">✳</span></div>
+                </div>
+                <div class="visual-caption" aria-hidden="true"><span class="caption-line"></span>@Model.T("visual.caption")</div>
+                <span class="visual-corner" aria-hidden="true">↗</span>
+            </div>
+        </section>
+
+        <section class="destinations section wrap" id="destinations" aria-labelledby="destinations-title">
+            <div class="section-heading"><div><p class="section-number" aria-hidden="true">01 /</p><h2 id="destinations-title">@Model.T("destinations.title")</h2></div><p>@Model.T("destinations.description")</p></div>
+            <div class="destination-grid">
+                <a class="destination-card destination-turkey" href="@Model.BotUrl"><div class="destination-art" aria-hidden="true"><svg viewBox="0 0 200 180" focusable="false"><circle cx="141" cy="46" r="23" fill="#eeb980" /><path d="M0 151c29-32 58-18 84-34s56-11 116 20v43H0" fill="#d7c8af" /><path d="M42 147v-45h17v45M139 147V98h17v49M49 102V72l3-13 3 13v30M145 98V58l3-13 3 13v40" fill="#173b39" /><path d="M64 147V94h68v53Z" fill="#2e5a4e" /><path d="M68 95a30 30 0 0 1 60 0Z" fill="#173b39" /><path d="M91 147v-22a8 8 0 0 1 16 0v22" fill="#e6dfcb" /><path d="M98 65V55" stroke="#173b39" stroke-width="2" /></svg></div><div class="destination-name"><span>@Model.T("destinations.turkey")</span><span aria-hidden="true">↗</span></div></a>
+                <a class="destination-card destination-azerbaijan" href="@Model.BotUrl"><div class="destination-art" aria-hidden="true"><svg viewBox="0 0 200 180" focusable="false"><circle cx="56" cy="48" r="24" fill="#c6dfd4" /><path d="M0 146c54-19 97 21 200-5v39H0" fill="#b5cec4" /><path d="M48 148c-12-39 1-75 35-105-14 38-2 70 4 105Z" fill="#173b39" /><path d="M91 148c-13-48 7-94 40-124-16 41-4 84 5 124Z" fill="#2e5a4e" /><path d="M140 148c-8-30 2-59 28-85-7 34-1 59 9 85Z" fill="#639884" /><g stroke="#bdd7c7" stroke-width="1" opacity=".65"><path d="m61 90 17 8m-21 6 24 11m-26 3 28 11m26-58 17 9m-23 7 24 12m-27 6 30 14m-31 6 35 13m17-38 15 8m-20 5 24 12" /></g></svg></div><div class="destination-name"><span>@Model.T("destinations.azerbaijan")</span><span aria-hidden="true">↗</span></div></a>
+                <a class="destination-card destination-georgia" href="@Model.BotUrl"><div class="destination-art" aria-hidden="true"><svg viewBox="0 0 200 180" focusable="false"><circle cx="150" cy="46" r="20" fill="#efe4bc" /><path d="m0 149 60-88 46 58 36-42 58 74v29H0" fill="#8bafa0" /><path d="m0 161 96-112 104 121v10H0" fill="#416959" /><path d="m66 84 30-35 34 40-26-12-12 13-10-12Z" fill="#f4f1de" /><path d="M65 149v-29h24v29M72 120v-17h11v17" fill="#173b39" /><path d="m67 104 10-13 11 13M60 122l17-14 17 14" fill="#23463d" /><path d="M76 141v8" stroke="#d0dfc9" stroke-width="4" /><path d="M0 169c59-28 136-30 200-9v20H0" fill="#bdd0b3" /></svg></div><div class="destination-name"><span>@Model.T("destinations.georgia")</span><span aria-hidden="true">↗</span></div></a>
+                <a class="destination-card destination-europe" href="@Model.BotUrl"><div class="destination-art" aria-hidden="true"><svg viewBox="0 0 200 180" focusable="false"><circle cx="143" cy="45" r="22" fill="#e8c798" /><path d="M0 150h200v30H0" fill="#c5d4c6" /><path d="M25 147V88h33v59M62 147V75h36v72M103 147V88h32v59M140 147V69h32v78" fill="#466b5b" /><path d="m21 89 20-20 21 20m-5-12 23-29 23 29m-4 13 20-19 20 19m-3-20 20-27 20 27" fill="#173b39" /><g fill="#dedfc5"><path d="M34 98h7v12h-7m6 18h8v19h-8m32-53h8v13h-8m-9 18h8v22h-8m32-39h8v12h-8m34-24h8v13h-8m-8 18h8v20h-8" /></g></svg></div><div class="destination-name"><span>@Model.T("destinations.europe")</span><span aria-hidden="true">↗</span></div></a>
+                <a class="destination-card destination-world" href="@Model.BotUrl"><div class="destination-art" aria-hidden="true"><svg viewBox="0 0 200 180" focusable="false"><g fill="none" stroke="#bddfc9" stroke-width="1.4"><circle cx="100" cy="88" r="57" /><ellipse cx="100" cy="88" rx="27" ry="57" /><ellipse cx="100" cy="88" rx="57" ry="24" /><path d="M43 88h114M100 31v114" /></g><path d="m139 32 25 12-11 4-4 12-10-28Z" fill="#e9ddbe" /><circle cx="59" cy="116" r="5" fill="#e9ddbe" /></svg></div><div class="destination-name"><span>@Model.T("destinations.world")</span><span aria-hidden="true">↗</span></div></a>
+            </div>
+            <a class="text-link section-link" href="@Model.BotUrl">@Model.T("destinations.cta") <span aria-hidden="true">↗</span></a>
+        </section>
+
+        <section class="how section wrap" id="how-it-works" aria-labelledby="how-title">
+            <div class="section-heading"><div><p class="section-number" aria-hidden="true">02 /</p><h2 id="how-title">@Model.T("how.title")</h2></div></div>
+            <ol class="steps">
+                <li class="step"><span class="step-number" aria-hidden="true">01</span><svg class="step-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M35 19c0 10-11 19-11 19S13 29 13 19a11 11 0 0 1 22 0Z" /><circle cx="24" cy="19" r="4" /><path d="M13 38H7l4-9h3m21 9h6l-4-9h-3" /></svg><h3>@Model.T("how.choose.title")</h3><p>@Model.T("how.choose.text")</p></li>
+                <li class="step"><span class="step-number" aria-hidden="true">02</span><svg class="step-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="m24 6 5.4 11 12.1 1.8-8.8 8.5 2.1 12-10.8-5.7-10.8 5.7 2.1-12-8.8-8.5L18.6 17Z" /></svg><h3>@Model.T("how.pay.title")</h3><p>@Model.T("how.pay.text")</p></li>
+                <li class="step"><span class="step-number" aria-hidden="true">03</span><svg class="step-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect x="13" y="5" width="23" height="38" rx="5" /><path d="M21 9h7M22 37h5m-10-13 5 5 9-10" /></svg><h3>@Model.T("how.install.title")</h3><p>@Model.T("how.install.text")</p></li>
+            </ol>
+        </section>
+
+        <section class="pricing-section section wrap" aria-labelledby="pricing-title">
+            <div class="pricing-panel">
+                <div class="pricing-symbols" aria-hidden="true"><span class="symbol-star">✦</span><span class="symbol-approx">≈</span><span class="symbol-dollar">$</span><span class="pricing-orbit"></span></div>
+                <div class="pricing-copy"><p class="section-number" aria-hidden="true">03 /</p><h2 id="pricing-title">@Model.T("pricing.title")</h2><p>@Model.T("pricing.text")</p><p class="pricing-note">@Model.T("pricing.note")</p></div>
+            </div>
+            <aside class="compatibility"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="M12 11v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /><circle cx="12" cy="7.5" r="1" fill="currentColor" /></svg><div><h3>@Model.T("compatibility.title")</h3><p>@Model.T("compatibility.text")</p></div></aside>
+        </section>
+
+        <section class="faq section wrap" id="faq" aria-labelledby="faq-title">
+            <div><p class="section-number" aria-hidden="true">04 /</p><h2 id="faq-title">@Model.T("faq.title")</h2></div>
+            <div class="faq-list">
+                <details><summary>@Model.T("faq.q1")<span aria-hidden="true">+</span></summary><p>@Model.T("faq.a1")</p></details>
+                <details><summary>@Model.T("faq.q2")<span aria-hidden="true">+</span></summary><p>@Model.T("faq.a2")</p></details>
+                <details><summary>@Model.T("faq.q3")<span aria-hidden="true">+</span></summary><p>@Model.T("faq.a3")</p></details>
+            </div>
+        </section>
+
+        <section class="final-cta wrap" aria-labelledby="cta-title"><div class="cta-decoration" aria-hidden="true">✳</div><div><h2 id="cta-title">@Model.T("cta.title")</h2><p>@Model.T("cta.text")</p></div><a class="button button-primary" href="@Model.BotUrl">@Model.T("hero.cta") <span aria-hidden="true">↗</span></a></section>
+    </main>
+
+    <footer class="site-footer wrap">
+        <div class="footer-main"><div><a class="brand footer-brand" href="@Model.CanonicalUrl">Roami<span class="brand-light">SIM</span><span class="brand-dot">.</span></a><p>@Model.T("footer.note")</p></div><div class="footer-links"><a href="@Model.BotStartUrl("terms")">@Model.T("footer.terms") <span aria-hidden="true">↗</span></a><a href="@Model.BotStartUrl("support")">@Model.T("footer.support") <span aria-hidden="true">↗</span></a></div></div>
+        <div class="footer-bottom"><p>@Model.T("footer.rights")</p><nav class="language-links" aria-label="RU / AZ / EN"><a href="/" lang="ru" hreflang="ru" aria-current="@(Model.Language == "ru" ? "page" : null)">Русский</a><a href="/az" lang="az" hreflang="az" aria-current="@(Model.Language == "az" ? "page" : null)">Azərbaycanca</a><a href="/en" lang="en" hreflang="en" aria-current="@(Model.Language == "en" ? "page" : null)">English</a></nav></div>
+    </footer>
+</body>
+</html>

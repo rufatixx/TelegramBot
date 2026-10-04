@@ -1,0 +1,5 @@
+{
+  "balance.order": "⚠️ Insufficient eSIM Access balance\n\nAvailable now: {0}\nRequired for one selected plan: {1}\nShortfall: {2}\n\nTop up eSIM Access by at least this amount. This is the shortfall for one plan, not the total for all pending orders. The balance was checked before this message was sent.",
+  "balance.minimum": "⚠️ Your eSIM Access balance cannot cover even the cheapest available plan\n\nAvailable now: {0}\nCheapest plan cost: {1}\nMinimum shortfall: {2}\n\nTop up your eSIM Access balance. More expensive plans and multiple orders will require more funds. The balance was checked before this message was sent.",
+  "balance.empty": "⚠️ eSIM Access balance: $0.00\n\nTop up the supplier balance to issue eSIMs. The cheapest plan cost is currently unavailable, so the exact minimum amount will be shown after the catalogue refreshes."
+}

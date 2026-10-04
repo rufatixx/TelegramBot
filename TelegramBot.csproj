@@ -25,4 +25,10 @@
     <Folder Include="Services\" />
     <Folder Include="Repo\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="EsimBot/**/*.cs;EsimBot.Tests/**/*.cs" />
+    <Content Remove="EsimBot/**;EsimBot.Tests/**" />
+    <None Remove="EsimBot/**;EsimBot.Tests/**" />
+    <EmbeddedResource Remove="EsimBot/**;EsimBot.Tests/**" />
+  </ItemGroup>
 </Project>

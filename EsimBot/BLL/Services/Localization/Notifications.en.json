@@ -1,0 +1,9 @@
+{
+  "notifications.ready_caption": "📱 Your eSIM is ready\n{0}\nOrder: {1}\n\nThis QR code contains the key to your eSIM. Do not share it with anyone.",
+  "notifications.manual_parts": "\nSM-DP+ address: <code>{0}</code>\nActivation code: <code>{1}</code>",
+  "notifications.manual_code": "\nInstallation code: <code>{0}</code>",
+  "notifications.apn": "\nAPN, if your device asks for it: <code>{0}</code>",
+  "notifications.install": "<b>Set up your eSIM</b>\n\nConnect to Wi-Fi. In your mobile network settings, select “Add eSIM” and scan the QR code from another screen, or enter the details manually.{0}{1}\n\nAt your destination, select this eSIM for mobile data and enable data roaming for it. To avoid charges from your home carrier, disable mobile data and automatic switching for your primary SIM.\n\nValidity begins according to the selected plan's activation terms. Do not delete the eSIM: whether it can be reinstalled depends on the operator.\n\nData balance and status: /orders. Operator data may take time to update. Help: /support.",
+  "notifications.refunded": "↩️ Order {0} has been refunded: {1} ⭐. Check your Telegram Stars balance.",
+  "notifications.admin_attention": "eSIM order {0} needs review. Status: {1}. Check the order and payment before taking any manual action."
+}

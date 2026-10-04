@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+**/TestResults/
+.DS_Store
+.idea/
+.vs/
+*.user
+**/appsettings.Local.json
+EsimBot/appsettings.json
+**/appsettings.*.Local.json
+**/.env
+**/.env.*
+artifacts/

@@ -1,0 +1,9 @@
+{
+  "notifications.ready_caption": "📱 eSIM-iniz hazırdır\n{0}\nSifariş: {1}\n\nBu QR kod eSIM-inizin açarını ehtiva edir. Onu başqaları ilə paylaşmayın.",
+  "notifications.manual_parts": "\nSM-DP+ ünvanı: <code>{0}</code>\nAktivləşdirmə kodu: <code>{1}</code>",
+  "notifications.manual_code": "\nQuraşdırma kodu: <code>{0}</code>",
+  "notifications.apn": "\nCihaz tələb edərsə, APN: <code>{0}</code>",
+  "notifications.install": "<b>eSIM-in quraşdırılması</b>\n\nWi-Fi şəbəkəsinə qoşulun. Mobil şəbəkə parametrlərində «eSIM əlavə et» seçin və QR kodu başqa ekrandan skan edin, yaxud məlumatları əl ilə daxil edin.{0}{1}\n\nSəfər yerinə çatanda mobil internet üçün bu eSIM-i seçin və onun data rouminqini aktiv edin. Əsas operatorunuzun əlavə ödəniş tutmaması üçün əsas SIM-də mobil interneti və ona avtomatik keçidi söndürün.\n\nİstifadə müddəti seçdiyiniz tarifin aktivləşdirmə şərtlərinə uyğun başlayır. eSIM-i silməyin: yenidən quraşdırma imkanı operatordan asılıdır.\n\nİnternet qalığı və status: /orders. Operator məlumatları gecikmə ilə yenilənə bilər. Kömək: /support.",
+  "notifications.refunded": "↩️ {0} nömrəli sifariş üçün {1} ⭐ geri qaytarıldı. Telegram Stars balansınızı yoxlayın.",
+  "notifications.admin_attention": "{0} nömrəli eSIM sifarişini yoxlamaq lazımdır. Status: {1}. Əl ilə hər hansı əməliyyatdan əvvəl sifarişi və ödənişi yoxlayın."
+}

@@ -1,0 +1,16 @@
+.flag.flag-official {
+    display: block;
+    flex: none;
+    width: 28px;
+    height: auto;
+    border-radius: 3px;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px #173b3926;
+}
+
+@media (max-width: 520px) {
+    .flag.flag-official {
+        width: 25px;
+        height: auto;
+    }
+}
