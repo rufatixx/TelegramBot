@@ -18,22 +18,34 @@ public sealed class AdminStatisticsService(
     public async Task<AdminStatistics?> GetAsync(long adminUserId, CancellationToken ct)
     {
         if (adminUserId <= 0 || adminUserId != options.Value.AdminUserId) return null;
+        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(ct);
+        timeout.CancelAfter(TimeSpan.FromSeconds(8));
+        var work = timeout.Token;
+        var balanceTask = GetBalanceAsync(work);
+        try
+        {
+            await using var session = await database.OpenSessionAsync(work);
+            var orderStats = await orders.GetStatisticsAsync(session, work);
+            var paymentStats = await payments.GetStatisticsAsync(session, work);
+            var issuedEsims = await esims.CountAsync(session, work);
+            var users = await appState.CountUsersAsync(work);
 
-        var usersTask = appState.CountUsersAsync(ct);
-        var balanceTask = GetBalanceAsync(ct);
-        await using var session = await database.OpenSessionAsync(ct);
-        var orderStats = await orders.GetStatisticsAsync(session, ct);
-        var paymentStats = await payments.GetStatisticsAsync(session, ct);
-        var issuedEsims = await esims.CountAsync(session, ct);
-
-        return new AdminStatistics(await usersTask,
-            new OrderStatistics(orderStats.Buyers, orderStats.TotalOrders, orderStats.OrdersLast24Hours,
-                orderStats.Quoted, orderStats.Paid, orderStats.Provisioning, orderStats.Ready,
-                orderStats.Delivered, orderStats.RefundPending, orderStats.Refunded, orderStats.ManualReview),
-            new PaymentStatistics(paymentStats.TotalPayments, paymentStats.SuccessfulPayments,
-                paymentStats.SuccessfulLast24Hours, paymentStats.Accepted, paymentStats.RefundPending,
-                paymentStats.Refunded, paymentStats.GrossStars, paymentStats.RefundedStars), issuedEsims,
-            await balanceTask, runtime.IsReady, DateTime.UtcNow);
+            return new AdminStatistics(users,
+                new OrderStatistics(orderStats.Buyers, orderStats.TotalOrders, orderStats.OrdersLast24Hours,
+                    orderStats.Quoted, orderStats.Paid, orderStats.Provisioning, orderStats.Ready,
+                    orderStats.Delivered, orderStats.RefundPending, orderStats.Refunded, orderStats.ManualReview),
+                new PaymentStatistics(paymentStats.TotalPayments, paymentStats.SuccessfulPayments,
+                    paymentStats.SuccessfulLast24Hours, paymentStats.Accepted, paymentStats.RefundPending,
+                    paymentStats.Refunded, paymentStats.GrossStars, paymentStats.RefundedStars), issuedEsims,
+                await balanceTask, runtime.IsReady, DateTime.UtcNow);
+        }
+        catch (OperationCanceledException) when (ct.IsCancellationRequested) { throw; }
+        catch (Exception ex)
+        {
+            logger.LogWarning("Administrator statistics are unavailable ({ExceptionType})", ex.GetType().Name);
+            try { await balanceTask; } catch (Exception) { }
+            return null;
+        }
     }
 
     private async Task<long?> GetBalanceAsync(CancellationToken ct)
@@ -42,7 +54,7 @@ public sealed class AdminStatisticsService(
         try
         {
             using var timeout = CancellationTokenSource.CreateLinkedTokenSource(ct);
-            timeout.CancelAfter(TimeSpan.FromSeconds(6));
+            timeout.CancelAfter(TimeSpan.FromSeconds(3));
             return await provider.GetBalanceUnitsAsync(timeout.Token);
         }
         catch (OperationCanceledException) when (ct.IsCancellationRequested) { throw; }

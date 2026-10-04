@@ -17,6 +17,22 @@ namespace EsimBot.Tests;
 public sealed class StoreIntegrationTests
 {
     [DatabaseFact]
+    public async Task Statistics_aggregates_map_to_integer_DAOs_on_real_MySQL()
+    {
+        await using var fixture = new StoreFixture();
+        await using var session = await fixture.Database.OpenSessionAsync(fixture.Token);
+        var orderStats = await new OrdersRepository().GetStatisticsAsync(session, fixture.Token);
+        var paymentStats = await new PaymentsRepository().GetStatisticsAsync(session, fixture.Token);
+        var issued = await new EsimsRepository().CountAsync(session, fixture.Token);
+
+        Assert.True(orderStats.TotalOrders >= 0);
+        Assert.True(orderStats.Quoted >= 0);
+        Assert.True(paymentStats.TotalPayments >= 0);
+        Assert.True(paymentStats.GrossStars >= 0);
+        Assert.True(issued >= 0);
+    }
+
+    [DatabaseFact]
     public async Task A_failed_later_repository_write_rolls_back_both_order_and_payment()
     {
         await using var fixture = new StoreFixture();

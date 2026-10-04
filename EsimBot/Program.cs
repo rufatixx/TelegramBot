@@ -52,7 +52,7 @@ if (args is ["--import-test-settings"] or ["--import-test-settings", _])
     return;
 }
 
-var diagnosticMode = args.Length == 1 && args[0] is "--check-config" or "--check" or "--verify-db" or "--check-provider";
+var diagnosticMode = args.Length == 1 && args[0] is "--check-config" or "--check" or "--verify-db" or "--check-provider" or "--check-stats";
 var builder = WebApplication.CreateBuilder(diagnosticMode ? [] : args);
 // The owner's filled appsettings.json is copied by normal Build/Publish and excluded from Git.
 // Do not load legacy appsettings.Local.json: a leftover server copy must not override the new publication.
@@ -136,7 +136,16 @@ if (diagnosticMode)
             throw new InvalidOperationException("Database connection or storage encryption settings are incomplete.");
         using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(45));
         var state = app.Services.GetRequiredService<IAppStateRepository>();
-        if (args[0] == "--check-provider")
+        if (args[0] == "--check-stats")
+        {
+            var statistics = await app.Services.GetRequiredService<IAdminStatisticsService>()
+                .GetAsync(botOptions.AdminUserId, timeout.Token)
+                ?? throw new InvalidOperationException("Administrator statistics are unavailable.");
+            Console.WriteLine(FormattableString.Invariant(
+                $"Statistics read-only check: users {statistics.Users}; orders {statistics.Orders.TotalOrders}; payments {statistics.Payments.TotalPayments}; issued eSIMs {statistics.IssuedEsims}."));
+            Console.WriteLine("No database row, Telegram message, provider order or webhook setting was changed.");
+        }
+        else if (args[0] == "--check-provider")
         {
             if (readiness.TestMode) throw new InvalidOperationException("Supplier checks are disabled in payment-test mode.");
             var provider = app.Services.GetRequiredService<IEsimAccessClient>();

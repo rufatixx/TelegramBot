@@ -12,13 +12,13 @@ public sealed class PaymentsRepository : IPaymentsRepository
         var db = DatabaseSession.Require(session);
         return db.Connection.QuerySingleAsync<PaymentStatisticsDao>(new CommandDefinition("""
             SELECT COUNT(*) AS TotalPayments,
-                   COALESCE(SUM(accepted_at IS NOT NULL),0) AS SuccessfulPayments,
-                   COALESCE(SUM(accepted_at >= UTC_TIMESTAMP(6) - INTERVAL 24 HOUR),0) AS SuccessfulLast24Hours,
-                   COALESCE(SUM(state='accepted'),0) AS Accepted,
-                   COALESCE(SUM(state='refund_pending'),0) AS RefundPending,
-                   COALESCE(SUM(state='refunded'),0) AS Refunded,
-                   COALESCE(SUM(CASE WHEN accepted_at IS NOT NULL THEN stars ELSE 0 END),0) AS GrossStars,
-                   COALESCE(SUM(CASE WHEN accepted_at IS NOT NULL AND refunded_at IS NOT NULL THEN stars ELSE 0 END),0) AS RefundedStars
+                   CAST(COALESCE(SUM(accepted_at IS NOT NULL),0) AS SIGNED) AS SuccessfulPayments,
+                   CAST(COALESCE(SUM(accepted_at >= UTC_TIMESTAMP(6) - INTERVAL 24 HOUR),0) AS SIGNED) AS SuccessfulLast24Hours,
+                   CAST(COALESCE(SUM(state='accepted'),0) AS SIGNED) AS Accepted,
+                   CAST(COALESCE(SUM(state='refund_pending'),0) AS SIGNED) AS RefundPending,
+                   CAST(COALESCE(SUM(state='refunded'),0) AS SIGNED) AS Refunded,
+                   CAST(COALESCE(SUM(CASE WHEN accepted_at IS NOT NULL THEN stars ELSE 0 END),0) AS SIGNED) AS GrossStars,
+                   CAST(COALESCE(SUM(CASE WHEN accepted_at IS NOT NULL AND refunded_at IS NOT NULL THEN stars ELSE 0 END),0) AS SIGNED) AS RefundedStars
             FROM payments
             """, transaction: db.Transaction, cancellationToken: ct));
     }

@@ -13,15 +13,15 @@ public sealed class OrdersRepository : IOrdersRepository
         return db.Connection.QuerySingleAsync<OrderStatisticsDao>(new CommandDefinition("""
             SELECT COUNT(DISTINCT user_id) AS Buyers,
                    COUNT(*) AS TotalOrders,
-                   COALESCE(SUM(created_at >= UTC_TIMESTAMP(6) - INTERVAL 24 HOUR),0) AS OrdersLast24Hours,
-                   COALESCE(SUM(state='quoted'),0) AS Quoted,
-                   COALESCE(SUM(state='paid'),0) AS Paid,
-                   COALESCE(SUM(state='provisioning'),0) AS Provisioning,
-                   COALESCE(SUM(state='ready'),0) AS Ready,
-                   COALESCE(SUM(delivered_at IS NOT NULL),0) AS Delivered,
-                   COALESCE(SUM(state='refund_pending'),0) AS RefundPending,
-                   COALESCE(SUM(state='refunded'),0) AS Refunded,
-                   COALESCE(SUM(state='manual_review'),0) AS ManualReview
+                   CAST(COALESCE(SUM(created_at >= UTC_TIMESTAMP(6) - INTERVAL 24 HOUR),0) AS SIGNED) AS OrdersLast24Hours,
+                   CAST(COALESCE(SUM(state='quoted'),0) AS SIGNED) AS Quoted,
+                   CAST(COALESCE(SUM(state='paid'),0) AS SIGNED) AS Paid,
+                   CAST(COALESCE(SUM(state='provisioning'),0) AS SIGNED) AS Provisioning,
+                   CAST(COALESCE(SUM(state='ready'),0) AS SIGNED) AS Ready,
+                   CAST(COALESCE(SUM(delivered_at IS NOT NULL),0) AS SIGNED) AS Delivered,
+                   CAST(COALESCE(SUM(state='refund_pending'),0) AS SIGNED) AS RefundPending,
+                   CAST(COALESCE(SUM(state='refunded'),0) AS SIGNED) AS Refunded,
+                   CAST(COALESCE(SUM(state='manual_review'),0) AS SIGNED) AS ManualReview
             FROM orders
             """, transaction: db.Transaction, cancellationToken: ct));
     }

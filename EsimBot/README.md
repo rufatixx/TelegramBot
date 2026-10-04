@@ -102,6 +102,10 @@ appsettings.Local.json  сохранённая приватная резервн
 - `TelegramBot:DefaultLanguage` — запасной язык `en` (также `az`/`ru`).
 - `TelegramBot:Mode=Webhook` требует `WebhookUrl=https://домен/api/telegram/webhook`
   и случайный `WebhookSecret` из букв, цифр, `_` и `-`, рекомендуется 32+ символа.
+- Для опубликованного Web API используйте именно `Webhook`. Режим `Polling` требует
+  постоянно работающего процесса и перестаёт отвечать, если IIS/хостинг усыпляет сайт.
+  Webhook-запрос Telegram автоматически будит веб-приложение; при холодном старте
+  сервер отвечает `503`, и Telegram безопасно повторяет доставку обновления.
   По умолчанию Polling: никакие из этих полей не нужны.
 
 Встроенные условия описывают работу приложения; они не заменяют проверку применимых
@@ -318,6 +322,7 @@ dotnet run --project EsimBot/EsimBot.csproj -- --check-config
 dotnet run --project EsimBot/EsimBot.csproj -- --check
 dotnet run --project EsimBot/EsimBot.csproj -- --verify-db
 dotnet run --project EsimBot/EsimBot.csproj -- --check-provider
+dotnet run --project EsimBot/EsimBot.csproj -- --check-stats
 dotnet publish EsimBot/EsimBot.csproj -c Release -o artifacts/esim-bot-publish /p:UseAppHost=false
 ```
 
@@ -331,6 +336,8 @@ dotnet publish EsimBot/EsimBot.csproj -c Release -o artifacts/esim-bot-publish /
 режиме поставщик заблокирован. Если заполнен SecretKey, проверка использует
 подписанные HMAC-запросы. Webhook поставщика регистрировать не требуется: выдача
 сверяется фоновыми запросами по номеру заказа.
+`--check-stats` выполняет тот же агрегированный read-only запрос, что кнопка
+администратора, без отправки сообщения и без изменения данных.
 Опциональные интеграционные тесты включаются переменной `ESIMBOT_INTEGRATION_CONFIG`,
 содержащей полный путь к подготовленному конфигурационному файлу. Они создают
 свои уникальные тестовые строки, затем удаляют только их и проверяют очистку.
