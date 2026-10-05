@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "akiJLkvTdEP5yFml9pelKW6W6DBTzfAp0VmwTvJPHw61FrTVh0TvuOnmv5VYp7uywHfJ+e/nG7IWRLzMxU+ESw==",
+  "dgSpecHash": "2dtZAG1yJto=",
   "success": true,
   "projectFilePath": "/Users/admin/Projects/TelegramBot/TelegramBot.csproj",
   "expectedPackageFiles": [
@@ -21,7 +21,10 @@
     "/Users/admin/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
     "/Users/admin/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
     "/Users/admin/.nuget/packages/system.text.json/8.0.5/system.text.json.8.0.5.nupkg.sha512",
-    "/Users/admin/.nuget/packages/telegram.bot/22.4.4/telegram.bot.22.4.4.nupkg.sha512"
+    "/Users/admin/.nuget/packages/telegram.bot/22.4.4/telegram.bot.22.4.4.nupkg.sha512",
+    "/Users/admin/.nuget/packages/microsoft.netcore.app.ref/8.0.25/microsoft.netcore.app.ref.8.0.25.nupkg.sha512",
+    "/Users/admin/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.25/microsoft.aspnetcore.app.ref.8.0.25.nupkg.sha512",
+    "/Users/admin/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.25/microsoft.netcore.app.host.osx-arm64.8.0.25.nupkg.sha512"
   ],
   "logs": []
 }
